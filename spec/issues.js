@@ -13,7 +13,7 @@ test('Store', function() {
 		return viewModel;
 	}
 
-	Store = function(data) {
+	function Store(data) {
 		data = data || {};
 		var mapping = {
 				Products: {
