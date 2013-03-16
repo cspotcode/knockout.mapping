@@ -1840,3 +1840,20 @@ test('ko.mapping.toJS explicit declared none observable members should be mapped
     equal(js.b, data.b);
 });
 
+test('Mapping options that target properties of sub-objects should not apply to properties of the root object', function() {
+	var data = {
+		a: {
+			b: 123
+		},
+		'a.b': 456
+	};
+
+	var viewModel = ko.mapping.fromJS(data, {ignore: 'a.b'});
+	var js = ko.mapping.toJS(viewModel);
+
+	equal(ko.isObservable(viewModel['a.b']), true);
+	equal(viewModel.a.b, undefined);
+	equal(js['a.b'], 456);
+	equal(js.a.b, undefined);
+});
+
